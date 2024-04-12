@@ -9,29 +9,27 @@ import Foundation
 
 class SearchViewModel: ObservableObject {
     
-  //  let apliClient = APIClient()
+    //  let apliClient = APIClient()
     
-        @Published var searchResults: [Welcome] = []
-        @Published var searchTextVM: String = ""
+    @Published var searchResults: Welcome?
+    @Published var searchTextVM: String = ""
     
-        
-        private let apiClient = APIClient()
-        
-        init() {
-            // Llamamos a la función de búsqueda al iniciar el ViewModel
-        }
-        
+    private let apiClient = APIClient()
+    
     func search(query: String) {
-            apiClient.getSearchResult(query: query) { result in
+        apiClient.getSearchResult(query: query) { result in
+            DispatchQueue.main.async {
+                
                 switch result {
                 case .success(let welcome):
-                    DispatchQueue.main.async {
-                        self.searchResults = [welcome]
-                    }
+                    self.searchResults = welcome
+                    print("results \(welcome.results)")
                 case .failure(let error):
                     print("Error fetching search results: \(error)")
+                    
                 }
             }
         }
     }
-
+    
+}

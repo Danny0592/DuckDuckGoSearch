@@ -18,8 +18,9 @@ class APIClient {
                 return
             }
         
-        var request = URLRequest(url: url
-                                 ,timeoutInterval: Double.infinity)
+        
+        var request = URLRequest(url: url,timeoutInterval: Double.infinity)
+        
         request.httpMethod = "GET"
         
         let _: Void = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -44,23 +45,4 @@ class APIClient {
         }.resume()
     }
 }
-
-
-
-
-
-/*import Foundation
-
-var request = URLRequest(url: URL(string: "https://api.duckduckgo.com/?q=American%2BAirlines&format=json&pretty=1")!,timeoutInterval: Double.infinity)
-request.httpMethod = "GET"
-
-let task = URLSession.shared.dataTask(with: request) { data, response, error in
-  guard let data = data else {
-    print(String(describing: error))
-    return
-  }
-  print(String(data: data, encoding: .utf8)!)
-}
-
-task.resume()*/
 
